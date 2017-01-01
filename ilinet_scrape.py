@@ -1,6 +1,6 @@
 #import requests
- import urllib2 as url
-
+import urllib2 as url
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 from lxml import html 
 
@@ -10,18 +10,29 @@ page = url.urlopen(site)
 
 soup = bs(page,"html.parser")
 
-right_table  = soup.find_all("table")
-#print all_tables #print soup.prettify() 
-#print soup.title.string
+table_headers = soup.findAll("tr",limit = 2)[0].findAll("th")
 
-table_headers = soup.findAll("tr",limit = 2)
+#print table_headers 
 
-print table_headers 
+column_headers = [th.getText() for th in soup.findAll("tr",limit = 2)[0].findAll("th")]
 
-ili_data = soup.find_all("td")
-    #for row in right_table.findAll("tr"):
-#    cell = row.findAll("td")
-#    headers = row.findAll("th") 
-    
+#print column_headers,type(column_headers)
 
-    
+data_rows = soup.findAll("tr")[1:]
+
+#print data_rows,type(data_rows)
+
+ili_data = [[td.getText() for td in data_rows[i].findAll("td")] for i in range(len(data_rows))]
+
+#print ili_data
+
+df = pd.DataFrame(ili_data, columns = column_headers)
+
+df = df.convert_objects(convert_numeric = True)
+
+#print df.dtypes
+
+df["Week"].to_string
+print df.dtypes
+#df.insert(0,"Year",df.Week[0:4])
+#print df
