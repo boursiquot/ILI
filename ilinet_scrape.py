@@ -24,15 +24,16 @@ data_rows = soup.findAll("tr")[1:]
 
 ili_data = [[td.getText() for td in data_rows[i].findAll("td")] for i in range(len(data_rows))]
 
-#print ili_data
+ili_data2  = pd.to_numeric(ili_data) 
+print ili_data2
 
-df = pd.DataFrame(ili_data, columns = column_headers)
+#df = pd.DataFrame(ili_data, columns = column_headers)
 
-df = df.convert_objects(convert_numeric = True)
+#df = df.convert_objects(convert_numeric = True)
+
+#df = pd.to_numeric(df)
 
 #print df.dtypes
 
-df["Week"].to_string
-print df.dtypes
-#df.insert(0,"Year",df.Week[0:4])
-#print df
+#df.loc[:,"Week"] = df.loc[:,"Week"].astype(str)
+#print  df
