@@ -42,7 +42,8 @@ df  = pd.DataFrame(ili_data, columns = column_headers)
 
 #df = df.apply(pd.to_numeric)
 
-print df
+#print df
 
+df.to_csv("/Users/bernice/GitHub/ILI/ilinet_scrape",sep=',')
 #df.loc[:,"Week"] = df.loc[:,"Week"].astype(str)
 #print  df
