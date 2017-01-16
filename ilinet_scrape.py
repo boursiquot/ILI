@@ -1,4 +1,3 @@
-#import requests
 import urllib2 as url
 import pandas as pd
 from bs4 import BeautifulSoup as bs
@@ -20,8 +19,6 @@ column_headers.insert(1,"Region")
 
 column_headers.insert(2,"Year")
 
-print column_headers
-
 data_rows = soup.findAll("tr")[1:]
 
 ili_data = [[td.getText() for td in data_rows[i].findAll("td")] for i in range(len(data_rows))]
@@ -36,14 +33,10 @@ for i in ili_data:
     i.insert(0,"National")
     i.insert(1,"X")
 
-print ili_data    
-
 df  = pd.DataFrame(ili_data, columns = column_headers)
 
-#df = df.apply(pd.to_numeric)
+print df.head()
 
-#print df
-
-df.to_csv("/Users/bernice/GitHub/ILI/ilinet_scrape",sep=',')
+df.to_csv("/Users/bernice/GitHub/ILI/ilinet_scrape.txt",sep=',')
 #df.loc[:,"Week"] = df.loc[:,"Week"].astype(str)
 #print  df
