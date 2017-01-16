@@ -2,8 +2,13 @@ import urllib2 as url
 import pandas as pd
 from bs4 import BeautifulSoup as bs
 from lxml import html
+import datetime as dt
 
-site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt01.html"
+week = dt.date.today().isocalendar()[1]
+
+week = "0" + str(week-2) #change -2 to -1; is currently -2 for testing
+
+site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
 
 page = url.urlopen(site)
 
@@ -37,6 +42,10 @@ df  = pd.DataFrame(ili_data, columns = column_headers)
 
 print df.head()
 
-df.to_csv("/Users/bernice/GitHub/ILI/ilinet_scrape.txt",sep=',')
+date = dt.date.today().strftime("%Y%m%d")
+
+filename = "/Users/bernice/Github/ILI/_ILINett -" + date + ".txt"
+
+df.to_csv(filename, sep=',')
 #df.loc[:,"Week"] = df.loc[:,"Week"].astype(str)
 #print  df
