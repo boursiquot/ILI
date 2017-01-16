@@ -44,7 +44,7 @@ print df.head()
 
 date = dt.date.today().strftime("%Y%m%d")
 
-filename = "/Users/bernice/Github/ILI/_ILINett -" + date + ".txt"
+filename = "/Users/bernice/Github/ILI/_ILINett - " + date + ".txt"
 
 df.to_csv(filename, sep=',')
 #df.loc[:,"Week"] = df.loc[:,"Week"].astype(str)
