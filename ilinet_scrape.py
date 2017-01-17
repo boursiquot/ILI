@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup as bs
 from lxml import html
 import datetime as dt
 import logging as lg
+import sys
+
+start = dt.datetime.now().strftime("%Y/%m/%d %H:%M")
 
 date = dt.date.today().strftime("%Y%m%d")
 
@@ -11,20 +14,23 @@ logname = "/Users/bernice/GitHub/ILI/logs/ilinet" + date + ".log"
 
 lg.basicConfig(filename=logname,level=lg.INFO,filemode = "w")
 
-#lg.error("An error has occurred")
+lg.info ("ILI Net data checked at {0}.".format(start))
 
 week = dt.date.today().isocalendar()[1]
 
-week = "0" + str(week-1) #01-17-2017: change -2 to -1; is currently -2 for testing
+week = "0" + str(week-1) #01-17-2017: change -2 to -1; is currently -2 for testing errors and logs
+
+site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
 
 try:
 
-    site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
+    page = url.urlopen(site)
 
-except HTTPERROR as err:
-    print "HTTP Error : {0}".format(err)
-
-page = url.urlopen(site)
+except url.HTTPError as err:
+    lg.error(err) 
+    print "Error occurred; check log"
+    sys.exit(1) ## From Python docs: a zero value is considered to be a sucessful termination
+                ## A non-zero value is considered to be an abnormal termination
 
 soup = bs(page,"html.parser")
 
