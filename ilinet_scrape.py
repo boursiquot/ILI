@@ -18,7 +18,7 @@ lg.info ("ILI Net data checked at {0}.".format(start))
 
 week = dt.date.today().isocalendar()[1]
 
-week = "0" + str(week-2) #01-17-2017: change -2 to -1; is currently -1 for testing errors and logs
+week = "0" + str(week-2) ##01-17-2017: change -2 to -1; is currently -1 for testing errors and logs
 
 site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
 
@@ -27,6 +27,7 @@ try:
     page = url.urlopen(site)
 
 except url.HTTPError as err:
+
     lg.error(err) 
     print "Error occurred; check log"
     sys.exit(1) ## From Python docs: a zero value is considered to be a sucessful termination
@@ -65,8 +66,10 @@ df  = pd.DataFrame(ili_data, columns = column_headers)
 filename = "/Users/bernice/Github/ILI/output/_ILINett - " + date + ".txt"
 
 try:
+
     df.to_csv(filename, sep=',')
     lg.info("ILI Net data were sucessfully scraped and exported")
 
 except:
+
     lg.info("Issue with scraping and exporting data")
