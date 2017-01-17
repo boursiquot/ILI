@@ -3,10 +3,19 @@ import pandas as pd
 from bs4 import BeautifulSoup as bs
 from lxml import html
 import datetime as dt
+import logging as lg
+
+date = dt.date.today().strftime("%Y%m%d")
+
+logname = "/Users/bernice/GitHub/ILI/logs/ilinet" + date + ".log"
+
+lg.basicConfig(filename=logname,level=lg.INFO,filemode = "w")
+
+lg.error("An error has occurred")
 
 week = dt.date.today().isocalendar()[1]
 
-week = "0" + str(week-2) #change -2 to -1; is currently -2 for testing
+week = "0" + str(week-1) #01-17-2017: change -2 to -1; is currently -2 for testing
 
 site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
 
@@ -42,9 +51,7 @@ df  = pd.DataFrame(ili_data, columns = column_headers)
 
 print df.head()
 
-date = dt.date.today().strftime("%Y%m%d")
-
-filename = "/Users/bernice/Github/ILI/_ILINett - " + date + ".txt"
+filename = "/Users/bernice/Github/ILI/output/_ILINett - " + date + ".txt"
 
 df.to_csv(filename, sep=',')
 #df.loc[:,"Week"] = df.loc[:,"Week"].astype(str)
