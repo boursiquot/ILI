@@ -15,7 +15,7 @@ lg.error("An error has occurred")
 
 week = dt.date.today().isocalendar()[1]
 
-week = "0" + str(week-1) #01-17-2017: change -2 to -1; is currently -2 for testing
+week = "0" + str(week-2) #01-17-2017: change -2 to -1; is currently -2 for testing
 
 site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
 
