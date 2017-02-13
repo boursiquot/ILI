@@ -18,7 +18,13 @@ lg.info ("ILI Net data checked at {0}.".format(start))
 
 week = dt.date.today().isocalendar()[1]
 
-week = "0" + str(week-2) ##01-17-2017: change -2 to -1; is currently -1 for testing errors and logs
+if len(str(week)) == 1:
+    
+    week = "0" + str(week-2) 
+    
+else:
+    
+    week =  str(week-2)
 
 site = "https://www.cdc.gov/flu/weekly/weeklyarchives2016-2017/data/senAllregt" + week + ".html"
 
@@ -29,7 +35,7 @@ try:
 except url.HTTPError as err:
 
     lg.error(err) 
-    print "Error occurred; check log"
+   # print "Error occurred; check log"
     sys.exit(1) ## From Python docs: a zero value is considered to be a sucessful termination
                 ## A non-zero value is considered to be an abnormal termination
 
