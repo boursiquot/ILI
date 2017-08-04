@@ -16,7 +16,9 @@ lg.basicConfig(filename=logname,level=lg.INFO,filemode = "w")
 
 lg.info ("ILI Net data checked at {0}.".format(start))
 
-week = dt.date.today().isocalendar()[1]
+week = dt.date.today().isocalendar()[1] 
+
+## NEED TO CHECK WEEK FOR LENGTH 
 
 week = "0" + str(week-2) ##01-17-2017: change -2 to -1; is currently -1 for testing errors and logs
 
